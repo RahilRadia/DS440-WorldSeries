@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Data",
+    "\\Data\\Feature_Engineering",
+    "\\Data\\Processed",
+    "\\Data\\Raw",
+    "\\Models",
+    "\\Models\\Model scripts",
+    "\\Requirements"
   ],
-  "SelectedNode": "\\Test_Code.py",
+  "SelectedNode": "\\Models\\Model scripts",
   "PreviewInSolutionExplorer": false
 }
