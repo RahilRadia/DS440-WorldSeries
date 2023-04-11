@@ -10,13 +10,10 @@ from sklearn.model_selection import train_test_split
 
 
 ##load data##
-pitching_data = pd.read_csv('teampitching.csv')
-batting_data = pd.read_csv('teambattingstats.csv')
 playoffs_data = pd.read_csv('playoffappearances.csv')
 master_ws_data = pd.read_csv('masterWS.csv', header=0)
 
 ###CLEAN DATA###
-
 #create predictor variable Win_Percent as percent wins in the season
 master_ws_data["Win_Percent"] = master_ws_data["W"] / (master_ws_data["W"] + master_ws_data["L"])
 #Remove the Wins/Loses columns and case identifier variables Season and Team
@@ -63,12 +60,7 @@ print(automl.predict(X_train).shape)
 # Export the best model
 print(automl.model)
 
-#correlation heatmap
-import seaborn as sns
 
-plt.subplots(figsize=(15,15))
-numeric_correlations = master_ws_data.corr() # correlations between numeric variables
-sns.heatmap(numeric_correlations, xticklabels=1, yticklabels=1)
 
 
 

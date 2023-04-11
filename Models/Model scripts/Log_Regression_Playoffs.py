@@ -3,7 +3,8 @@ import sklearn
 
 dimensions = ["ops", "r_per_game", "ra_per_game", "make_playoffs"]
 predictor_dimensions = ["ops", "r_per_game", "ra_per_game"] # choose anything for these. OPS, R/G, RA/G, etc. 
-#_df = df[dimensions]
+_df = df[dimensions]
+
 
 #std_clf = make_pipeline(StandardScaler(), PCA(n_components=2), GaussianNB())
 #std_clf.fit(X_train, y_train)

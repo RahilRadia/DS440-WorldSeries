@@ -3,30 +3,29 @@ import pandas as pd
 import re
 
 ##load data##
-pitching_data = pd.read_csv('Data/Raw/teampitching.csv')
-batting_data = pd.read_csv('Data/Raw/teambattingstats.csv')
 playoffs_data = pd.read_csv('Data/Raw/playoffappearances.csv')
-master_ws_data = pd.read_csv('Data/Raw/masterWS.csv', header=0)
+master_ws_data = pd.read_csv('Data/Raw/masterWorldSeries.csv', header=0)
 
 ###CLEAN DATA###
 
-#create predictor variable Win_Percent as percent wins in the season
-master_ws_data["Win_Percent"] = master_ws_data["W"] / (master_ws_data["W"] + master_ws_data["L"])
-
-
 #Split into 2015-2021 and 2022 seasons for test and train
-master_test = master_ws_data.loc[master_ws_data['Season'] == 2022]
+master_test = master_ws_data.loc[master_ws_data['season'] == 2022]
+master_train = master_ws_data.loc[master_ws_data['season'] != 2022]#create predictor variable Win_Percent as percent wins in the season
+master_train["Win_Percent"] = master_ws_data["w"] / (master_ws_data["w"] + master_ws_data["l"])
 
 #Remove the Wins/Loses columns and case identifier variables Season and Team
-master_test = master_ws_data.drop(columns = ["Season","Team",'W', 'L'])
-master_test = master_ws_data.drop(columns = ["Season","Team",'W', 'L'])
-
+master_test = master_test.drop(columns = ["season","team",'w', 'l'])
+master_train = master_train.drop(columns = ["season","team",'w', 'l'])
 
 #Cast strings to floats and remove JSON char
-master_ws_data= master_ws_data.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
-master_ws_data = master_ws_data.replace('%', '', regex=True)
-master_ws_data = master_ws_data.astype(float)
+master_train = master_train.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
+master_train = master_train.replace('%', '', regex=True)
+master_train = master_train.astype(float)
+
+master_test= master_test.rename(columns = lambda x:re.sub('[^A-Za-z0-9_]+', '', x))
+master_test = master_test.replace('%', '', regex=True)
+master_test = master_test.astype(float)
 
 #Save to processed data folder
-master_ws_data.to_csv('Data/Processed/master_ws_data.csv')
-master_test.to_csv('Data/Processed/master_test.csv')
+master_train.to_csv('Data/Processed/train.csv')
+master_test.to_csv('Data/Processed/test.csv')
