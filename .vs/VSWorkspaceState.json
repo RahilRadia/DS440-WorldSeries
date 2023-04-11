@@ -4,11 +4,8 @@
     "\\Data",
     "\\Data\\Feature_Engineering",
     "\\Data\\Processed",
-    "\\Data\\Raw",
-    "\\Models",
-    "\\Models\\Model scripts",
-    "\\Requirements"
+    "\\Data\\Raw"
   ],
-  "SelectedNode": "\\Models\\Model scripts",
+  "SelectedNode": "\\Data\\Raw\\masterWorldSeries.csv",
   "PreviewInSolutionExplorer": false
 }

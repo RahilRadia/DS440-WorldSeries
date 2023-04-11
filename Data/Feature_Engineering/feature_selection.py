@@ -16,4 +16,5 @@ train.to_csv('Data/Processed/auto_feature_selection.csv')
 print(features)
 
 #Personal Feature Selection
-personal_fs = train.columns[]
+personal_fs = train.columns["ERA", "ERAgainst", "AVGbat", "OPS", "WPApitch", "Batting", "HR", "ER", "WARpitch", "FIP", "WHIPAllowed", "RBI", "KtoBB", "WARbat"]
+print(personal_fs)
