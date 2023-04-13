@@ -10,7 +10,7 @@ _df = df[dimensions]
 #std_clf.fit(X_train, y_train)
 
 # predict playoff qualifiers for a given year (2000-2015)
-#for year in range(2015, 2021):
+# for year in range(2015, 2021):
 #    _df = df[df["year"]==year]
 #    X = _df[predictor_dimensions]
 #    y = _df["make_playoffs"]
