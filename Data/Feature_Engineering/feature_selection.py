@@ -18,3 +18,5 @@ print(features)
 #Personal Feature Selection
 personal_fs = train.columns["ERA", "ERAgainst", "AVGbat", "OPS", "WPApitch", "Batting", "HR", "ER", "WARpitch", "FIP", "WHIPAllowed", "RBI", "KtoBB", "WARbat"]
 print(personal_fs)
+
+#  hi
