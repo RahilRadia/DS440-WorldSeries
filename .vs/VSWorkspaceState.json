@@ -9,6 +9,6 @@
     "\\Models\\Model scripts",
     "\\Requirements"
   ],
-  "SelectedNode": "\\Data\\Raw\\playoffappearances.csv",
+  "SelectedNode": "\\Data\\Feature_Engineering\\feature_selection.py",
   "PreviewInSolutionExplorer": false
 }
