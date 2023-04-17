@@ -2,6 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\Data",
+    "\\Data Visualizations",
     "\\Data\\Feature_Engineering",
     "\\Data\\Processed",
     "\\Data\\Raw",
@@ -9,6 +10,5 @@
     "\\Models\\Model scripts",
     "\\Requirements"
   ],
-  "SelectedNode": "\\Data\\Feature_Engineering\\feature_selection.py",
   "PreviewInSolutionExplorer": false
 }

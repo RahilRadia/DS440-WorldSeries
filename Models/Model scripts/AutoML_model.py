@@ -75,3 +75,25 @@ automl = AutoML()
 
 automl.fit(X_train_per.values, y_train_per, **automl_settings)
 print(automl.predict(X_train_auto))
+
+
+########################################################## PART 2 #########################################################################
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
+from sklearn.naive_bayes import GaussianNB
+
+playoff_appearance = pd.read_csv('Data/Raw/playoffappearances.csv', header=0)
+
+
+playoffmodel = make_pipeline(StandardScaler(), GaussianNB())
+playoffmodel.fit(X)
+
+std_clf.fit(X_train, y_train)
+
+# predict playoff qualifiers for a given year (2000-2015)
+for year in range(2000, 2016):
+    _df = df[df["year"]==year]
+    X = _df[predictor_dimensions]
+    y = _df["make_playoffs"]
+
+    _df["predicted_playoff_qualifier"] = std_clf.predict(X)
