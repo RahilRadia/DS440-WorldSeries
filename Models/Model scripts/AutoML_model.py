@@ -10,7 +10,7 @@ import seaborn as sns
 
 #Auto ML Settings
 automl_settings = {
-    "time_budget": 90, #seconds
+    "time_budget": 90,
     "metric": 'r2',
     "task": 'regression'
     }
@@ -45,29 +45,27 @@ print(automl.predict().shape)
 
 ############### Auto Feature Selection Data ##################
 # Seperate predictor and response variables
-X_auto = train_auto.iloc[:,:-1].astype(float)
-Y_auto = train_auto["Win_Percent"]
+X_train_auto = train_auto.iloc[:,:-1].astype(float)
+Y_train_auto = train_auto["Win_Percent"]
 
 X_test_auto = test_auto.iloc[:].astype(float)
 
 automl_auto = AutoML()
-automl.fit(X_train_auto.values, y_train_auto, **automl_settings)
+automl.fit(X_train_auto.values, Y_train_auto, **automl_settings)
 
 # Predict
-#print(automl.predict(X_test_auto))
+print(automl.predict(X_test_auto))
 # Export the best model
 #print(automl.model)
 
 ################### Personal Feature Selection Data ##################
 
-train_per = pd.read_csv('Data/Processed/personal_feature_selection.csv', header=0)
 
 # Seperate predictor and response variables
-X_per = train_per.iloc[:,:-1].astype(float)
-Y_per = train_per["Win_Percent"]
+X_train_per = train_per.iloc[:,:-1].astype(float)
+Y_train_per = train_per["Win_Percent"]
 
-#Split data randomly into test and train
-#X_train_per,X_test_per,y_train_per,y_test_per=train_test_split(X_per,Y_per,test_size=0.3,random_state=12)
+
 
 automl = AutoML()
 
