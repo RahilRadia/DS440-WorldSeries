@@ -38,8 +38,7 @@ automl = AutoML()
 automl.fit(X.values, Y, **automl_settings)
 
 #predict
-print(automl.predict().shape)
-# Export the best model
+print(automl.predict(X_test).shape)
 
 
 
@@ -51,12 +50,11 @@ Y_train_auto = train_auto["Win_Percent"]
 X_test_auto = test_auto.iloc[:].astype(float)
 
 automl_auto = AutoML()
-automl.fit(X_train_auto.values, Y_train_auto, **automl_settings)
+automl_auto.fit(X_train_auto.values, Y_train_auto, **automl_settings)
 
 # Predict
-print(automl.predict(X_test_auto))
-# Export the best model
-#print(automl.model)
+print(automl_auto.predict(X_test_auto))
+
 
 ################### Personal Feature Selection Data ##################
 
@@ -65,16 +63,13 @@ print(automl.predict(X_test_auto))
 X_train_per = train_per.iloc[:,:-1].astype(float)
 Y_train_per = train_per["Win_Percent"]
 
+X_test_per = test_per.iloc[:].astype(float)
 
 
-automl = AutoML()
+automl_per = AutoML()
+automl_per.fit(X_train_per.values, Y_train_per, **automl_settings)
 
-print(X_test_per)
-
-
-automl.fit(X_train_per.values, y_train_per, **automl_settings)
-
-yfit = automl.predict(X_test_per)
+yfit = automl_per.predict(X_test_per)
 print(yfit)
 
 
