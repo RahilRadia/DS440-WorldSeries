@@ -1,4 +1,7 @@
 import seaborn as sns
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # calculate correlation matrix
 corr_matrix = df.corr()
