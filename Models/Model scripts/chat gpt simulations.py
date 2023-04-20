@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import pandas as pd
+import time
 
 class WS_sim:
     def __init__(self, WSwinner, gameResults, winRate, gameStats, samples):
