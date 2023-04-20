@@ -10,58 +10,55 @@ import seaborn as sns
 
 #Auto ML Settings
 automl_settings = {
-    "time_budget": 60, #seconds
+    "time_budget": 90, #seconds
     "metric": 'r2',
     "task": 'regression'
     }
 
-##load data##
-#pitching_data = pd.read_csv('teampitching.csv')
-#atting_data = pd.read_csv('teambattingstats.csv')
-#playoffs_data = pd.read_csv('playoffappearances.csv')
+####load data#####
 train = pd.read_csv('Data/Processed/train.csv', header=0)
+test = pd.read_csv('Data/Processed/test.csv', header=0)
 
-# Seperate predictor and response variables
+train_auto = pd.read_csv('Data/Processed/train_auto.csv', header = 0)
+test_auto = pd.read_csv('Data/Processed/test_auto.csv', header = 0)
+
+train_per = pd.read_csv('Data/Processed/train_per.csv', header = 0)
+test_per = pd.read_csv('Data/Processed/test_per.csv', header = 0)
+
+
+
+################### Original Data ########################
+#Seperate predictor and response variables
 X = train.iloc[:,:-1].astype(float)
 Y = train["Win_Percent"]
 
-#Split data randomly into test and train
-X_train,X_test,y_train,y_test=train_test_split(X,Y,test_size=0.3,random_state=12)
+X_test = test.iloc[:].astype(float)
+
 automl = AutoML()
+automl.fit(X.values, Y, **automl_settings)
 
-
-#automl.fit(X_train.values, y_train, **automl_settings)
-# Predict
-#print(automl.predict(X_train).shape)
+#predict
+print(automl.predict().shape)
 # Export the best model
-#rint(automl.model)
 
 
-#make heatmap
-#plt.subplots(figsize=(15,15))
-#numeric_correlations = master_ws_data.corr() # correlations between numeric variables
-#sns.heatmap(numeric_correlations, xticklabels=1, yticklabels=1) 
 
-####### Auto Feature Selection ##########
-
-train_auto = pd.read_csv('Data/Processed/auto_feature_selection.csv', header=0)
-
+############### Auto Feature Selection Data ##################
 # Seperate predictor and response variables
 X_auto = train_auto.iloc[:,:-1].astype(float)
 Y_auto = train_auto["Win_Percent"]
 
-#Split data randomly into test and train
-X_train_auto,X_test_auto,y_train_auto,y_test_auto=train_test_split(X_auto,Y_auto,test_size=0.3,random_state=12)
-automl = AutoML()
+X_test_auto = test_auto.iloc[:].astype(float)
 
-#automl.fit(X_train_auto.values, y_train_auto, **automl_settings)
+automl_auto = AutoML()
+automl.fit(X_train_auto.values, y_train_auto, **automl_settings)
 
 # Predict
-#print(automl.predict(X_train_auto))
+#print(automl.predict(X_test_auto))
 # Export the best model
 #print(automl.model)
 
-####### Personal Feature Selection ##########
+################### Personal Feature Selection Data ##################
 
 train_per = pd.read_csv('Data/Processed/personal_feature_selection.csv', header=0)
 
@@ -70,30 +67,24 @@ X_per = train_per.iloc[:,:-1].astype(float)
 Y_per = train_per["Win_Percent"]
 
 #Split data randomly into test and train
-X_train_per,X_test_per,y_train_per,y_test_per=train_test_split(X_per,Y_per,test_size=0.3,random_state=12)
+#X_train_per,X_test_per,y_train_per,y_test_per=train_test_split(X_per,Y_per,test_size=0.3,random_state=12)
+
 automl = AutoML()
 
+print(X_test_per)
+
+
 automl.fit(X_train_per.values, y_train_per, **automl_settings)
-print(automl.predict(X_train_auto))
+
+yfit = automl.predict(X_test_per)
+print(yfit)
 
 
 ########################################################## PART 2 #########################################################################
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import make_pipeline
-from sklearn.naive_bayes import GaussianNB
-
-playoff_appearance = pd.read_csv('Data/Raw/playoffappearances.csv', header=0)
+#Test dataset
 
 
-playoffmodel = make_pipeline(StandardScaler(), GaussianNB())
-playoffmodel.fit(X)
 
-std_clf.fit(X_train, y_train)
 
-# predict playoff qualifiers for a given year (2000-2015)
-for year in range(2000, 2016):
-    _df = df[df["year"]==year]
-    X = _df[predictor_dimensions]
-    y = _df["make_playoffs"]
 
-    _df["predicted_playoff_qualifier"] = std_clf.predict(X)
+
