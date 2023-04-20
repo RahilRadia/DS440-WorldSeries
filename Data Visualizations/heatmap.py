@@ -3,6 +3,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+#import data
+df = pd.read_csv('Data/Processed/train.csv', header=0)
+
 # calculate correlation matrix
 corr_matrix = df.corr()
 fig, ax = plt.subplots(figsize=(50,50))
