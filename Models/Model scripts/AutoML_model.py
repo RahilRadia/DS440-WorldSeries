@@ -1,12 +1,10 @@
 import numpy as py
 import pandas as pd
-from flaml import AutoML
+from flaml import AutoML, DataTransformer
 import tabula as tb
 import re
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-#correlation heatmap
-import seaborn as sns
 
 #Auto ML Settings
 automl_settings = {
@@ -25,52 +23,67 @@ test_auto = pd.read_csv('Data/Processed/test_auto.csv', header = 0)
 train_per = pd.read_csv('Data/Processed/train_per.csv', header = 0)
 test_per = pd.read_csv('Data/Processed/test_per.csv', header = 0)
 
-
+train_team = pd.read_csv('Data/Processed/train_team.csv', header = 0)
+test_team = pd.read_csv('Data/Processed/test_team.csv', header = 0)
 
 ################### Original Data ########################
 #Seperate predictor and response variables
-X = train.iloc[:,:-1].astype(float)
-Y = train["Win_Percent"]
+#X_train = train.iloc[:,:-1]
+#Y_train = train["Win_Percent"]
 
-X_test = test.iloc[:].astype(float)
+full_train = pd.merge(train_team, train, left_index=True, right_index=True)
+full_test = pd.merge(test_team, test, left_index=True, right_index=True)
 
+
+X_train = full_train.iloc[:,:-1]
+Y_train = full_train["Win_Percent"]
+X_test = full_test
+
+# Specify the categorical variables
+cat_cols = ['season', 'team', 'league']
+
+# Initialize the DataTransformer
+transformer = DataTransformer(cat_cols=cat_cols)
+
+# Fit the DataTransformer on the training data
+transformer.fit(X_train)
+
+# Transform the training data
+X_train_transformed = transformer.transform(X_train)
+
+# Fit the AutoML model on the transformed data
 automl = AutoML()
-automl.fit(X.values, Y, **automl_settings)
+automl.fit(X_train_transformed, Y_train, **automl_settings)
+
+#automl = AutoML()
+#automl.fit(X_train.values, Y_train, **automl_settings)
 
 #predict
-print(automl.predict(X_test).shape)
-
-
+Y_test = automl.predict(X_test)
+Y_test.head()
 
 ############### Auto Feature Selection Data ##################
 # Seperate predictor and response variables
-X_train_auto = train_auto.iloc[:,:-1].astype(float)
+X_train_auto = train_auto.iloc[:,:-1]
 Y_train_auto = train_auto["Win_Percent"]
 
-X_test_auto = test_auto.iloc[:].astype(float)
+X_test_auto = test_auto
 
 automl_auto = AutoML()
 automl_auto.fit(X_train_auto.values, Y_train_auto, **automl_settings)
 
-# Predict
-print(automl_auto.predict(X_test_auto))
-
 
 ################### Personal Feature Selection Data ##################
-
-
 # Seperate predictor and response variables
-X_train_per = train_per.iloc[:,:-1].astype(float)
+X_train_per = train_per.iloc[:,:-1]
 Y_train_per = train_per["Win_Percent"]
 
-X_test_per = test_per.iloc[:].astype(float)
+X_test_per = test_per
 
 
 automl_per = AutoML()
 automl_per.fit(X_train_per.values, Y_train_per, **automl_settings)
 
-yfit = automl_per.predict(X_test_per)
-print(yfit)
 
 
 ########################################################## PART 2 #########################################################################

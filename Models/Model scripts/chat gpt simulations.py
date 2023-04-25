@@ -60,3 +60,6 @@ def WS_simulation(team1, year1, team2, year2, nsim):
     )
     
     return sim
+#example   
+hou21_atl21 = WS_simulation('HOU', 2021, 'ATL', 2021, 5)
+print(hou21_atl21)
