@@ -17,7 +17,7 @@ def getmode(v):
 
 def WS_simulation(team1, year1, team2, year2, nsim):
     np.random.seed(int(time.time())) 
-    mlb = mlb_dat #this changes to our data
+    mlb = pd.read("Data/Final/2022_predicted_qualifiers") #this changes to our data
     
     seriesResults = []
     teamsPlaying = [str(year1) + "_" + team1, str(year2) + "_" + team2]
