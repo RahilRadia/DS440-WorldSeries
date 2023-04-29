@@ -4,12 +4,13 @@
     "\\Data",
     "\\Data Visualizations",
     "\\Data\\Feature_Engineering",
+    "\\Data\\Final",
     "\\Data\\Processed",
     "\\Data\\Raw",
     "\\Models",
     "\\Models\\Model scripts",
     "\\Requirements"
   ],
-  "SelectedNode": "\\Models\\Model scripts\\AutoML_model.py",
+  "SelectedNode": "\\Data\\Feature_Engineering\\feature_selection.py",
   "PreviewInSolutionExplorer": false
 }

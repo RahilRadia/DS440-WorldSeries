@@ -14,8 +14,8 @@ from sklearn.metrics import r2_score
 
 #import datasets
 original = pd.read_csv('Data/Processed/train.csv')
-auto = pd.read_csv('Data/Processed/auto_feature_selection.csv', header=0)
-personal = pd.read_csv('Data/Processed/personal_feature_selection.csv', header=0)
+auto = pd.read_csv('Data/Processed/train_auto.csv', header=0)
+personal = pd.read_csv('Data/Processed/train_per.csv', header=0)
 
 lr = LinearRegression()
 
