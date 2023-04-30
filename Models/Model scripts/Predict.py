@@ -43,7 +43,7 @@ predictions = test_team
 predictions['Win_Percent'] = Y_test_auto.tolist()
 
 predictions_2023 = test_team
-predictions_2023['Win_Percent'] = Y_test_23.toList()
+predictions_2023['Win_Percent'] = Y_test_23
 
 
 playoff_qualifiers = predictions.groupby('league', group_keys=True).apply(lambda x: x.nlargest(6, ['Win_Percent']))
